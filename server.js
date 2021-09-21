@@ -30,4 +30,8 @@ mongoose
 app.use("/users", userRoutes);
 app.use("/buses", busRoutes);
 
+app.get("/", (req, res) => {
+  res.send("Hello world");
+});
+
 app.listen(PORT, () => console.log(`server is listening on port ${PORT}!!`));
