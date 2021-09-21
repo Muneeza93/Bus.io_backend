@@ -19,16 +19,19 @@ exports.create = async (req, res) => {
 
 exports.findAll = async (req, res) => {
   try {
-    const getCities = await citiesModel.find();
+    const getCities = await citiesModel.find(req.query);
+    console.log(req.query);
     return res.status(200).json({
-      getCities,
+      status: "success",
+      results: getCities.length,
+      data: { getCities },
     });
   } catch (err) {
     res.status(400).send(err);
   }
 };
 
-exports.findOne = async (req, res) => {
+exports.findById = async (req, res) => {
   try {
     const city = await citiesModel.findById({ _id: req.params.id });
     return res.status(200).json({
