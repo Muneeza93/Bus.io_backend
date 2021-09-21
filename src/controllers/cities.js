@@ -30,9 +30,10 @@ exports.findAll = async (req, res) => {
 
 exports.findOne = async (req, res) => {
   try {
-    const city = await citiesModel.findOne({ _id: req.params.id });
+    const city = await citiesModel.findById({ _id: req.params.id });
     return res.status(200).json({
-      city: city,
+      success: true,
+      city,
     });
   } catch (err) {
     return res.status(400).send(err);
