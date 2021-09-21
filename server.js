@@ -6,6 +6,7 @@ require("dotenv").config();
 
 const userRoutes = require("./src/routes/user");
 const busRoutes = require("./src/routes/bus");
+const cityRoutes = require("./src/routes/cities");
 
 const PORT = process.env.PORT || 4000;
 
@@ -29,6 +30,7 @@ mongoose
 
 app.use("/users", userRoutes);
 app.use("/buses", busRoutes);
+app.use("/cities", cityRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello world");
