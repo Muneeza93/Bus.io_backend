@@ -6,13 +6,14 @@ require("dotenv").config();
 
 const userRoutes = require("./src/routes/user");
 const busRoutes = require("./src/routes/bus");
+const cityRoutes = require("./src/routes/cities");
 
 const PORT = process.env.PORT || 4000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const uri = process.env.MONGO_URL || "mongodb://127.0.0.1:27017/bus";
+const uri = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/bus";
 
 mongoose
   .connect(uri, {
@@ -29,6 +30,7 @@ mongoose
 
 app.use("/users", userRoutes);
 app.use("/buses", busRoutes);
+app.use("/cities", cityRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello world");
