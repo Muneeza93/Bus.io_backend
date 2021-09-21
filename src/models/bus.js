@@ -11,7 +11,7 @@ const busSchema = new Schema({
   departureTime: String,
   estimatedDuration: String,
   numberOfSeats: Number,
-  remainingSeats: [[Number]],
+  remainingSeats: [Number],
   price: Number,
 });
 
