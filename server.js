@@ -1,6 +1,35 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const swaggerJsDoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
+
 const app = express();
+
+const swaggerOptions = {
+  swaggerDefinition: {
+    openapi: "3.0.3",
+    info: {
+      title: "Bus.io API's ",
+      description: "Bus.io API documented with swagger",
+      contact: {
+        name: "Bus.io_ReloadlyXFlutterwave",
+        url: "https://github.com/Muneeza93/bus.io_backend-ReloadlyXFlutterwave",
+        email: "sebagabomuneeza@gmail.com",
+      },
+      version: "1.0.1",
+    },
+    server: [
+      {
+        url: "http://localhost:4000",
+        description: "development server",
+      },
+    ],
+  },
+  apis: ["./src/controllers/*.js"],
+};
+
+const specs = swaggerJsDoc(swaggerOptions);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 
 require("dotenv").config();
 
