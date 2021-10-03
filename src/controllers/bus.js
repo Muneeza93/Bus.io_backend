@@ -1,6 +1,70 @@
 const moment = require("moment");
 const busModel = require("../models/bus");
 
+/**
+ * @swagger
+ * components:
+ *    schemas:
+ *     Bus:
+ *         type: object
+ *        required:
+ *           - busImage
+ *           - source
+ *           - busName
+ *           - averageRating
+ *           - numberOfRatings
+ *           - departureDay
+ *           - departureTime
+ *           - estimatedDuration
+ *           - numberOfSeats
+ *           - remainingSeats
+ *           - price
+ *         properties:
+ *           _id:
+ *              type: integer
+ *              description: auto-generated id of the bus
+ *           busImage:
+ *               type: string
+ *               description: link of image
+ *           source:
+ *               type: string
+ *               description: name of bus company
+ *           busName:
+ *               type: string
+ *               description: bus manufacturer
+ *           averageRating:
+ *               type: integer
+ *               description: rating from customers
+ *           numberOfRatings:
+ *               type: integer
+ *               description: number of rating from customers
+ *          departureDay:
+ *               type: date
+ *               description: date when bus leaves
+ *            departureTime:
+ *                type: string
+ *                description: time when bus leaves
+ *           estimatedDuration:
+ *                type: string
+ *                description: duration of journey
+ *           numberOfSeats:
+ *                type: integer
+ *                description: seating capacity of bus
+ *           remainingSeats:
+ *                type: [integer]
+ *                description: empty seats
+ *               price:
+ *                     type: integer
+ *                 description: amount for bus ticket
+ */
+
+/**
+ * @swagger
+ * tags:
+ *   name: Bus
+ *   description: Bus managing API
+ */
+
 exports.create = async (req, res) => {
   try {
     const bus = await busModel({
