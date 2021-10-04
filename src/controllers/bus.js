@@ -5,57 +5,57 @@ const busModel = require("../models/bus");
  * @swagger
  * components:
  *    schemas:
- *     Bus:
- *         type: object
+ *      Bus:
+ *        type: object
  *        required:
- *           - busImage
- *           - source
- *           - busName
- *           - averageRating
- *           - numberOfRatings
- *           - departureDay
- *           - departureTime
- *           - estimatedDuration
- *           - numberOfSeats
- *           - remainingSeats
- *           - price
- *         properties:
- *           _id:
- *              type: integer
- *              description: auto-generated id of the bus
- *           busImage:
- *               type: string
- *               description: link of image
- *           source:
- *               type: string
- *               description: name of bus company
- *           busName:
- *               type: string
- *               description: bus manufacturer
- *           averageRating:
- *               type: integer
- *               description: rating from customers
- *           numberOfRatings:
- *               type: integer
- *               description: number of rating from customers
+ *          - busImage
+ *          - source
+ *          - busName
+ *          - averageRating
+ *          - numberOfRatings
+ *          - departureDay
+ *          - departureTime
+ *          - estimatedDuration
+ *          - numberOfSeats
+ *          - remainingSeats
+ *          - price
+ *        properties:
+ *          _id:
+ *             type: integer
+ *             description: auto-generated id of the bus operator
+ *          busImage:
+ *                  type: string
+ *                  description: image of bus operator
+ *          source:
+ *                type: string
+ *                description: name of bus operator
+ *          busName:
+ *                 type: string
+ *                 description: name of bus manufacturer
+ *          averageRating:
+ *                       type: integer
+ *                       description: average rating of bus operator from customers
+ *          numberOfRatings:
+ *                         type: integer
+ *                         description: total number of ratings
  *          departureDay:
- *               type: date
- *               description: date when bus leaves
- *            departureTime:
- *                type: string
- *                description: time when bus leaves
- *           estimatedDuration:
- *                type: string
- *                description: duration of journey
- *           numberOfSeats:
- *                type: integer
- *                description: seating capacity of bus
- *           remainingSeats:
- *                type: [integer]
- *                description: empty seats
- *               price:
- *                     type: integer
- *                 description: amount for bus ticket
+ *                      type: Date
+ *                      description: day bus operator leaves
+ *          departureTime:
+ *                       type: string
+ *                       description: time bus operator leaves for destination
+ *          estimatedDuration:
+ *                           type: string
+ *                           description: hours left from origin to destination
+ *          numberOfSeats:
+ *                       type: integer
+ *                       description: seating capacity of the bus
+ *          remainingSeats:
+ *                        type: [integer]
+ *                        description: vacant seats
+ *          price:
+ *               type: integer
+ *               description: amount for bus ticket
  */
 
 /**
@@ -65,6 +65,28 @@ const busModel = require("../models/bus");
  *   description: Bus managing API
  */
 
+/**
+ * @swagger
+ * /buses:
+ *  post:
+ *   summary: create bus
+ *   tags: [Bus]
+ *   requestBody:
+ *     required: true
+ *     content:
+ *       application/json:
+ *         schema:
+ *           $ref: '#components/schemas/Bus'
+ *   responses:
+ *     "201":
+ *       description: success
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#components/schemas/Bus'
+ *     "403":
+ *       description: bus operator doesnt exist
+ */
 exports.create = async (req, res) => {
   try {
     const bus = await busModel({
@@ -93,6 +115,20 @@ exports.create = async (req, res) => {
   }
 };
 
+/**
+ * @swagger
+ * /buses:
+ *   get:
+ *      description: search for a bus operator
+ *      tags: [Bus]
+ *      responses:
+ *         "200":
+ *              description: bus
+ *              content:
+ *                application/json:
+ *                   schema:
+ *                     $ref: '#components/schema/Bus'
+ */
 exports.findAll = async (req, res) => {
   try {
     const getBuses = await busModel.find();
@@ -104,6 +140,20 @@ exports.findAll = async (req, res) => {
   }
 };
 
+/**
+ * @swagger
+ * /buses:id:
+ *   get:
+ *      description: search for a bus by id
+ *      tags: [Bus]
+ *      responses:
+ *         "200":
+ *              description: bus
+ *              content:
+ *                application/json:
+ *                   schema:
+ *                     $ref: '#components/schema/Bus'
+ */
 exports.findOne = async (req, res) => {
   try {
     const bus = await busModel.findOne({ _id: req.params.id });
