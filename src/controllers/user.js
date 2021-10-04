@@ -1,38 +1,67 @@
 const userModel = require("../models/user");
 
-// /**
-//  * @swagger
-//  * components:
-//  *    schemas:
-//  *      User:
-//  *         type: object
-//  *         required:
-//  *           - firstName
-//  *           - lastName
-//  *           - email
-//  *           - phoneNumber
-//  *           - password
-//  *         properties:
-//  *           _id:
-//  *              type: integer
-//  *              description: auto-generated id of the user
-//  *         firstName:
-//  *               type: string
-//  *               description: first name of user
-//  *          lastName:
-//  *               type: string
-//  *               description: last name of user
-//  *              email:
-//  *               type: string
-//  *               description: email address of user
-//  *        phoneNumber:
-//  *               type: string
-//  *               description: phone number of user
-//  *           password:
-//  *               type: string
-//  *               description: password of user
-//  */
+/**
+ * @swagger
+ * components:
+ *    schemas:
+ *      User:
+ *         type: object
+ *         required:
+ *           - firstName
+ *           - lastName
+ *           - email
+ *           - phoneNumber
+ *           - password
+ *         properties:
+ *           _id:
+ *              type: integer
+ *              description: auto-generaed id for user
+ *           firstName:
+ *                    type: string
+ *                    description: user's first name
+ *           lastName:
+ *                   type: string
+ *                   description: user's last name
+ *           email:
+ *                type: string
+ *                description: email address of user
+ *           phoneNumber:
+ *                      type: string
+ *                      description: phone contact of user
+ *           password:
+ *                   type: string
+ *                   description: hashed passowrd for user
+ */
 
+/**
+ * @swagger
+ * tags:
+ *   name: User
+ *   description: User managing API
+ */
+
+/**
+ * @swagger
+ * /users/register:
+ *  post:
+ *   summary: create new user
+ *   tags: [User]
+ *   requestBody:
+ *     required: true
+ *     content:
+ *       application/json:
+ *         schema:
+ *           $ref: '#components/schemas/User'
+ *   responses:
+ *     "201":
+ *       description: Registration successful
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#components/schemas/User'
+ *     "403":
+ *       description: User with this email already exists
+ */
 exports.create = async (req, res) => {
   const user = await userModel(req.body);
   try {
@@ -42,9 +71,24 @@ exports.create = async (req, res) => {
       user: user,
     });
   } catch (err) {
-    res.status(500).send(err);
+    res.status(403).send(err);
   }
 };
+
+/**
+ * @swagger
+ * /users:
+ *   get:
+ *      description: return list of users
+ *      tags: [User]
+ *      responses:
+ *         "200":
+ *              description: user
+ *              content:
+ *                application/json:
+ *                   schema:
+ *                     $ref: '#components/schemas/User'
+ */
 
 exports.findAll = async (req, res) => {
   try {
